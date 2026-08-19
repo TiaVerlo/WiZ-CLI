@@ -3,8 +3,9 @@
 `wiz-cli` is a command-line interface to control WiZ smart lights.
 
 The project originally started in Python 3 and has recently been ported to Go.
+You can find both the last .py and current .go source files in the repo.
 
-It is a result of my hyperfocus, deep love of colorfull lights, and so-far life long journey to find RGB lights that I can set custom color fades on the way I want them to be.
+This project is a result of my hyperfocus, deep love of colorful lights, and so-far life long journey to find RGB lights that I can set custom color fades on just the way I want them to be.
 Also the official WiZ App is just not it in my opinion... no shade.
 
 ---
@@ -19,36 +20,45 @@ Also the official WiZ App is just not it in my opinion... no shade.
 * **Dynamic Scene Engine:** Run looping background scenes, smooth RGB/color transitions (`fade_rgb`, `fade_color`), or custom scriptable scenes defined in `.toml` or `.scenes` files.
 * **Non-Blocking Architecture:** Scene animations run asynchronously using Go channels and context cancellation without freezing the CLI.
 
----
+
 
 ## Platform & Dependencies
 
-* **Platform:** Currently macOS only.
-* **Dependencies:** Requires [`fzf`](https://github.com/junegunn/fzf) for interactive color and scene pickers. You can install it via Homebrew:
+**Platform:**
+Currently macOS only.
+Linux integration planned, should only need minimal refactoring.
+
+**Dependencies:** Requires [`fzf`](https://github.com/junegunn/fzf) for interactive color and scene pickers. I absolutely love this tool, fzf for the win!
+If you're on macOS, you can install fzf via Homebrew:
   ```bash
   brew install fzf
 ```
 
+
+
 ## Installation & Building
-1. Build from Source
 
-If you have Go installed on your machine:
+*note that you need to have Go installed to build the program*
+
+use Build Script - Intel (amd64), Apple Silicon (arm64), and Universal macOS Binary
+
+Download the repo, and then run
   ```bash
-  go build -o wiz-cli wiz-cli.go
+  cd WiZ-CLI/wiz-cli-go_v6.0/src
+  chmod +x build.command
+  ./build.command
 ```
+- this outputs binaries into the dist/ directory.
 
-2. Build Script - Intel (amd64), Apple Silicon (arm64), and universal macOS Binary
-  ```bash
-  chmod +x build.sh
-  ./build.sh
-```
-outputs into the dist/ directory
+Note that the default config files need to be in the same directory as the binary for the import shortcuts to work, so you can find them in the dist/ directory in the repo.
+Any default or custom config files can always also be loaded from anywhere when the full file path is provided.
 
----
+
 
 ## Usage
 
-You can launch wiz-cli in interactive shell mode or pass commands directly as arguments.
+You can launch `wiz-cli` in **interactive shell mode** or **pass commands directly as arguments**.
+
 *note: It is highly recommended that you set static IPs for your WiZ bulb in your router's settings.*
   ```bash
 # Launch interactive mode (auto-discovers bulbs)
@@ -62,21 +72,26 @@ You can launch wiz-cli in interactive shell mode or pass commands directly as ar
 ./wiz-cli on all  # --> turns all connected bulbs on
 ```
 
+
 ## Command Line Flags
 
 | Flag | Description | Example |
 |---|---|---|
-| `-ips`, `-i`, `--ips` | Specify comma-separated bulb IP addresses on startup. | `./wiz-cli -ips 192.168.1.10,192.168.1.11` |
-| `-file`, `-f`, `--file` | Load bulb IP addresses from a file. | `./wiz-cli -file bulbs.txt` |
+| `-i`, `--ips` | Specify comma-separated bulb IP addresses on startup. | `./wiz-cli --ips 192.168.1.10,192.168.1.11` |
+| `-f`, `--file` | Load bulb IP addresses from a file. | `./wiz-cli --file bulbs.txt` |
 | `-v`, `--version` | Display version information and exit. | `./wiz-cli -v` |
 | `-h`, `--help` | Show command usage and exit. | `./wiz-cli -h` |
+
 
 
 ## Command Reference
 
 Once inside the `wiz-cli` shell — or when executing one-off commands — the following commands are available.
+Note that the commands can be abbreviated, which allows you to work super fast with the shell.
 
-### General & Management
+
+
+**General & Management**
 
 | Command | Description |
 |---|---|
@@ -86,7 +101,7 @@ Once inside the `wiz-cli` shell — or when executing one-off commands — the f
 | `poll <id>` | Query a bulb for its raw device status via UDP. |
 | `quit` (`exit`, `q`) | Exit the CLI. |
 
-### Power & Brightness
+**Power & Brightness**
 
 | Command | Description |
 |---|---|
@@ -94,7 +109,7 @@ Once inside the `wiz-cli` shell — or when executing one-off commands — the f
 | `off <id\|all>` | Turn a specific bulb ID or all bulbs **OFF**. |
 | `brightness <id> <10-100>` (`b`) | Set brightness percentage. |
 
-### Color & Temperature
+**Color & Temperature**
 
 | Command | Description |
 |---|---|
@@ -105,8 +120,8 @@ Once inside the `wiz-cli` shell — or when executing one-off commands — the f
 | `temp <id> <2200-6500>` (`t`) | Set light temperature in Kelvin. |
 | `color_list` (`cl`) | List all available color presets. |
 
-### Scenes & Animations
-*note that the 'scenes' in the WiZ App terminology denote something quite different than here afaik*
+**Scenes & Animations**
+*(note that the 'scenes' in the WiZ App terminology denote something quite different than here afaik)*
 
 | Command | Description |
 |---|---|
@@ -117,7 +132,7 @@ Once inside the `wiz-cli` shell — or when executing one-off commands — the f
 | `reset <id>` | Reset a bulb to its default static state (dim warm white). |
 | `scene_list` (`sl`) | List all loaded custom scenes. |
 
-### Custom Configurations
+**Custom Configurations**
 
 | Command | Description |
 |---|---|
@@ -125,18 +140,28 @@ Once inside the `wiz-cli` shell — or when executing one-off commands — the f
 | `load_color_file <path>` | Load custom color definitions. |
 
 
---- 
 
 ## Custom Scene & Color Files
-Custom scenes and expanded color lists can be written in SceneScript, a TOML-based DSL. Refer to the provided templates for the syntax.
+Custom scenes and expanded color lists can be written in SceneScript, a TOML-based DSL.
 
-A still somewhat experimental but working visual SceneScript editor written in Python / PySide6 can be found in the tools section. This allows you to create your own scenes and store them in files for the main CLI to use.
+Scenes can be things like completely customizable fades between different colors, fast, or long, blinking, pulsing, timers, and so on.
 
----
+A still somewhat experimental but fully working visual SceneScript editor written in Python / PySide6 can be found in the tools section.
+With this you can easily create your own scenes, using a GUI to create and preview your scenes graphically, and store them in files for the main CLI to use.
+
+Alternatively the SceneScript is easy enough to understand to be written by hand as well.
+
+You can also specify custom color names and import them to the main CLI. 
+
+Refer to the provided templates/default files in dist/ for the syntax for both scenes and colors.
+
+
 
 ## Feedback and Collaboration
-I would be so happy to get some feedback or collaboration on this project, maybe it's interesting for anyone else out there :3
-If so, please get in touch!!
+This is one of my very first projects that is actually working and useful, so
+I would be very happy to get some feedback or collaboration on this project, maybe it's interesting for anyone else out there :3
+If so, please feel free to get in touch!!
+
 
 
 ## Further Work
@@ -147,9 +172,10 @@ To me the most interesting next step would be to look into further features / in
 An obvious and very satisfying avenue would be to build a rich, extensive and shareable library of well-defined named colors and especially scenes.
 
 *To Gui Or Not To Gui?*
-Even though the CLI works incredibly well and fast for this purpose in my opinion, especially when using abbreviations in the interactive shell mode, it would still be interesting to add a GUI wrapper.
-I've experimented a bit with DearPyGui, an immediate-mode Python GUI library based on Dear ImGui for this purpose and think it's very well suited, so this could be an avenue of further development.
+Even though the CLI works incredibly well and fast for this purpose in my opinion, especially when using abbreviations in the interactive shell mode, it would still be interesting to add a GUI layer/wrapper.
+I've experimented a bit with [`DearPyGui`](https://github.com/hoffstadt/DearPyGui), an immediate-mode Python GUI library based on Dear ImGui for this purpose and think it's very well suited, so this could be an avenue of further development.
 Another approach could be Server/Browser based, and could e.g. run on a Home Server or Pi, and be accessed through the browser from all devices on the local network. Many possibilities!
+
 
 
 ## Credits
@@ -159,11 +185,11 @@ https://seanmcnally.net/wiz-config.html
 
 Thank you, Sean!
 
-**Icons:** [Flaticon](https://www.flaticon.com/) / Gregor Cresnar
+**Icon Credit:** [Flaticon](https://www.flaticon.com/) / Gregor Cresnar
 
----
 
-## AI Disclaimer
+
+## AI Transparency Disclaimer
 I am still somewhat new to coding, but I have found a huge passion for it.
 
 I started this project in Python, which is the language I know best. LLMs were used for feedback, troubleshooting, and questions; however, the entire Python codebase was hand-written.
