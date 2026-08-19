@@ -38,9 +38,9 @@ If you're on macOS, you can install fzf via Homebrew:
 
 ## Installation & Building
 
-*note that you need to have Go installed to build the program*
+*(note that you need to have Go installed to build the program)*
 
-use Build Script - Intel (amd64), Apple Silicon (arm64), and Universal macOS Binary
+Adjust and use the **Build Script** - builds Intel (amd64), Apple Silicon (arm64), and Universal macOS Binary
 
 Download the repo, and then run
   ```bash
@@ -48,7 +48,7 @@ Download the repo, and then run
   chmod +x build.command
   ./build.command
 ```
-- this outputs binaries into the dist/ directory.
+This outputs binaries into the dist/ directory.
 
 Note that the default config files need to be in the same directory as the binary for the import shortcuts to work, so you can find them in the dist/ directory in the repo.
 Any default or custom config files can always also be loaded from anywhere when the full file path is provided.
@@ -61,15 +61,15 @@ You can launch `wiz-cli` in **interactive shell mode** or **pass commands direct
 
 *note: It is highly recommended that you set static IPs for your WiZ bulb in your router's settings.*
   ```bash
-# Launch interactive mode (auto-discovers bulbs)
+# launch interactive mode (auto-discovers bulbs on local network)
 ./wiz-cli
 
-# Pre-load specific bulb IPs
+# pre-load specific bulb IPs
 ./wiz-cli --file bulbs.txt
 ./wiz-cli --ips 192.168.1.50,192.168.1.51
 
-# Run a single command directly
-./wiz-cli on all  # --> turns all connected bulbs on
+# run a single command directly, for use in scripting
+./wiz-cli on all
 ```
 
 
@@ -113,7 +113,7 @@ Note that the commands can be abbreviated, which allows you to work super fast w
 
 | Command | Description |
 |---|---|
-| `color <id> [color_name]` (`c`) | Set a bulb to a named color preset (e.g. `red`, `teal`, `coral`). Opens `fzf` if no color is specified. |
+| `color <id> [color_name]` (`c`) | Set a bulb to a named color preset (e.g. `red`, `teal`, `coral`). Opens the `fzf` color selector if no color is specified. |
 | `fzf_color <id>` (`fzfc`) | Browse and switch colors continuously using `fzf` until `ESC` is pressed. |
 | `color_picker <id>` (`cp`, `picker`) | Open the native macOS GUI color picker. |
 | `rgb <id> <R,G,B>` | Set exact RGB values, e.g. `rgb 1 255,128,0`. |
@@ -125,11 +125,12 @@ Note that the commands can be abbreviated, which allows you to work super fast w
 
 | Command | Description |
 |---|---|
-| `scene <id> [scene_name]` (`s`) | Run a scene on a bulb. Opens the `fzf` scene selector if no name is provided. |
+| `scene <id> [scene_name]` (`s`) | Run a scene on a bulb. Opens the `fzf` scene selector if no scene is provided. |
 | `stop_scene <id>` (`x`) | Stop any running background scene or fade animation on a bulb. |
-| `fade_rgb <id> <R1,G1,B1> <R2,G2,B2> [cycle_sec]` | Continuously fade between two RGB colors. |
-| `fade_color <id> <color1> <color2> [cycle_sec]` | Continuously fade between two named color presets. |
-| `reset <id>` | Reset a bulb to its default static state (dim warm white). |
+| `fade_rgb <id> <R1,G1,B1> <R2,G2,B2> [cycle_sec]` | Continuously fade between two RGB colors. Use macOS color picker if no RGB values are specified.|
+| `fade_color <id> <color1> <color2> [cycle_sec]` | Continuously fade between two named color presets. Use `fzf` color picker if no RGB values are specified. |
+| `reset <id>` | Reset a bulb to a default static state. |
+| `color_list` (`sl`) | List all available named colors. |
 | `scene_list` (`sl`) | List all loaded custom scenes. |
 
 **Custom Configurations**
@@ -144,10 +145,10 @@ Note that the commands can be abbreviated, which allows you to work super fast w
 ## Custom Scene & Color Files
 Custom scenes and expanded color lists can be written in SceneScript, a TOML-based DSL.
 
-Scenes can be things like completely customizable fades between different colors, fast, or long, blinking, pulsing, timers, and so on.
+This is where I believe the true strength of this project lies, as it gives you full control and customization for things like fades of any speed between any amount colors, linear or not, pulsing, blinking, strobes, timers, and so on.
 
 A still somewhat experimental but fully working visual SceneScript editor written in Python / PySide6 can be found in the tools section.
-With this you can easily create your own scenes, using a GUI to create and preview your scenes graphically, and store them in files for the main CLI to use.
+With this you can easily create your own scenes, using a GUI to create and preview your scenes graphically, and store them in files for the main CLI to use (note the requirements.txt).
 
 Alternatively the SceneScript is easy enough to understand to be written by hand as well.
 
