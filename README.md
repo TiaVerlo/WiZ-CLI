@@ -37,10 +37,12 @@ If you're on macOS, you can install fzf via Homebrew:
 
 
 ## Installation & Building
+**Download pre-built binary**
+You can download a pre-built binaries from the "Releases" section.
 
+**Building from Source**
+You can use the provided *Build Script* - it builds Intel (amd64), Apple Silicon (arm64), and Universal macOS Binaries (adjust to your needs)
 *(note that you need to have Go installed to build the program)*
-
-Adjust and use the **Build Script** - builds Intel (amd64), Apple Silicon (arm64), and Universal macOS Binary
 
 Download the repo, and then run
   ```bash
