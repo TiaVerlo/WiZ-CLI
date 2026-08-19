@@ -1,0 +1,76 @@
+# SceneScript is a declarative DSL to define scenes for WiZ-CLI Control
+# (only the [SCENE] section will get evaluated)
+
+[SCENES]
+
+
+[scenes.pulse_teal_turquoise]
+description = "smooth exponential pulse through teal and turquoise with dark intervals (~10s cycle)"
+loop = true
+actions = [
+    { method = "setOff", },
+    { method = "delay", ms = 2000, },
+    { method = "fadeTo", r = 0, g = 40, b = 38, brightness = 5, ms = 2500, },
+    { method = "fadeTo", r = 64, g = 224, b = 208, brightness = 100, ms = 1500, },
+    { method = "fadeTo", r = 0, g = 40, b = 38, brightness = 5, ms = 1500, },
+    { method = "fadeTo", r = 0, g = 0, b = 0, brightness = 0, ms = 2500, }
+]
+
+[scenes.rose]
+description = "sets the bulb to a static rose color"
+loop = false
+actions = [
+    { method = "setOff", },
+    { method = "setColor", rgb = { r = 255, g = 0, b = 65, }, brightness = 100, cw = { c = 0, w = 110, }, }
+]
+
+[scenes.off_in_5m]
+description = "turns the bulb off after 1 hour"
+loop = false
+actions = [
+    { method = "delay", ms = 300000, },
+    { method = "setOff", }
+]
+
+[scenes.off_in_1h]
+description = "turns the bulb off after 1 hour"
+loop = false
+actions = [
+    { method = "delay", ms = 3600000, },
+    { method = "setOff", }
+]
+
+[scenes.blink_red_once]
+description = "blinks the bulb red a single time"
+loop = false
+actions = [
+    { method = "setOff", },
+    { method = "delay", ms = 250, },
+    { method = "setColor", rgb = { r = 255, g = 0, b = 0, }, brightness = 100, cw = { c = 0, w = 0, }, },
+    { method = "delay", ms = 750, },
+    { method = "setOff", }
+]
+
+[scenes.blink_red_loop]
+description = "blinks the bulb red continuously"
+loop = true
+actions = [
+    { method = "setOn", },
+    { method = "setColor", rgb = { r = 255, g = 0, b = 0, }, brightness = 100, cw = { c = 0, w = 0, }, },
+    { method = "delay", ms = 500, },
+    { method = "setOff", },
+    { method = "delay", ms = 500, }
+]
+
+# For the complex fade scenes, we map to the fadeTransition function parameters
+[scenes.fade_purple_pink]
+description = "continuously fades through a sequence of purple and pink colors"
+loop = true
+actions = [
+    { method = "fadeSequence", steps = 50, delay_ms = 300, colors = [
+        { r = 164, g = 0, b = 255, },
+        { r = 255, g = 0, b = 170, },
+        { r = 255, g = 0, b = 92, },
+        { r = 255, g = 0, b = 170, }
+    ],}
+]
