@@ -87,7 +87,7 @@ You can launch `wiz-cli` in **interactive shell mode** or **pass commands direct
 ## Command Reference
 
 Once inside the `wiz-cli` shell — or when executing one-off commands — the following commands are available.
-Note that the commands can be abbreviated, which allows you to work super fast with the shell.
+Note that the commands can be abbreviated, which allows you to work super fast with the shell. Different abbreviations are possible; the most convenient ones are added (in parenthesis) after the commands in the table below.
 
 
 
@@ -130,7 +130,7 @@ Note that the commands can be abbreviated, which allows you to work super fast w
 | `fade_rgb <id> <R1,G1,B1> <R2,G2,B2> [cycle_sec]` | Continuously fade between two RGB colors. Use macOS color picker if no RGB values are specified.|
 | `fade_color <id> <color1> <color2> [cycle_sec]` | Continuously fade between two named color presets. Use `fzf` color picker if no RGB values are specified. |
 | `reset <id>` | Reset a bulb to a default static state. |
-| `color_list` (`sl`) | List all available named colors. |
+| `color_list` (`cl`) | List all available named colors. |
 | `scene_list` (`sl`) | List all loaded custom scenes. |
 
 **Custom Configurations**
