@@ -39,21 +39,25 @@ is just not it in my opinion... no shade.
 
 ## Platform & Dependencies
 
-**Platform:** Currently macOS only. Linux integration planned, should
+**Platform:**
+- Currently macOS only. Linux integration planned, should
 only need minimal refactoring.
 
-**Dependencies:** Requires [`fzf`](https://github.com/junegunn/fzf) for
+**Dependencies:**
+- Requires [`fzf`](https://github.com/junegunn/fzf) for
 interactive color and scene pickers. I absolutely love this tool, fzf
 for the win! If you're on macOS, you can install fzf via Homebrew:
 `bash   brew install fzf`
 
 ## Installation & Building
 
-**Download pre-built binary** You can download pre-built binaries and
+**Download pre-built binary**
+- You can download pre-built binaries and
 the default config files from the "Releases" section.
 
-**Building from Source** with Go Compiler Alternatively, you can use the
-provided *Build Script* - it builds Intel (amd64), Apple Silicon
+**Building from Source**
+- Alternatively, you can use the
+provided *Build Script* with a Go Compiler - it builds Intel (amd64), Apple Silicon
 (arm64), and Universal macOS binaries (adjust to your needs)
 
 Download the repo, and then run
