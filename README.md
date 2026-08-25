@@ -138,37 +138,26 @@ expose a network service.
 > from interactive shell mode. Direct argument mode is intended
 > primarily for fully specified commands and scripting.
 
+
+
 ## Command Line Flags
 
-  ----------------------------------------------------------------------------------------------------
-  Flag                    Description             Example
-  ----------------------- ----------------------- ----------------------------------------------------
-  `-i`, `--ips`           Specify comma-separated `./wiz-cli --ips 192.168.1.10,192.168.1.11 on all`
-                          bulb IP addresses. In   
-                          direct command mode     
-                          these are registered    
-                          with the daemon.        
+| Flag | Description | Example |
+|---|---|---|
+| `-i`, `--ips` | Specify comma-separated bulb IP addresses. In direct command mode these are registered with the daemon. | `./wiz-cli --ips 192.168.1.10,192.168.1.11 on all` |
+| `-f`, `--file` | Load bulb IP addresses from a file. | `./wiz-cli --file bulbs.txt on all` |
+| `-v`, `--version` | Display version information and exit. | `./wiz-cli -v` |
+| `-h`, `--help` | Show command usage and exit. | `./wiz-cli -h` |
 
-  `-f`, `--file`          Load bulb IP addresses  `./wiz-cli --file bulbs.txt on all`
-                          from a file.            
-
-  `-v`, `--version`       Display version         `./wiz-cli -v`
-                          information and exit.   
-
-  `-h`, `--help`          Show command usage and  `./wiz-cli -h`
-                          exit.                   
 
 ## Daemon Commands
 
-  -----------------------------------------------------------------------
-  Command                             Description
-  -----------------------------------------------------------------------
-  `daemon status`                     Show whether the persistent
-                                      background daemon is currently
-                                      running.
+| Command | Description |
+|---|---|
+| `daemon status` | Show whether the persistent background daemon is currently running. |
+| `daemon stop` | Cancel all active scenes and stop the background daemon. |
 
-  `daemon stop`                       Cancel all active scenes and stop
-                                      the background daemon.
+
 
 ## Command Reference
 
@@ -188,59 +177,36 @@ ones are added (in parenthesis) after the commands in the table below.
 
 **General & Management**
 
-  -----------------------------------------------------------------------
-  Command                             Description
-  ----------------------------------- -----------------------------------
-  `list` (`ls`, `l`)                  List all currently
-                                      registered/discovered bulbs and
-                                      their state.
-
-  `discover` (`ds`, `d`)              Trigger a fresh UDP network search
-                                      for WiZ bulbs.
-
-  `add <ip1,ip2,...>`                 Manually add one or more bulbs by
-                                      IP address.
-
-  `poll <id>`                         Query a bulb for its raw device
-                                      status via UDP.
-
-  `quit` (`exit`, `q`)                Exit the CLI.
+| Command | Description |
+|---|---|
+| `list` (`ls`, `l`) | List all currently registered/discovered bulbs and their state. |
+| `discover` (`ds`, `d`) | Trigger a fresh UDP network search for WiZ bulbs. |
+| `add <ip1,ip2,...>` | Manually add one or more bulbs by IP address. |
+| `poll <id>` | Query a bulb for its raw device status via UDP. |
+| `quit` (`exit`, `q`) | Exit the CLI. |
 
 
 
 **Power & Brightness**
 
-  Command                            Description
-  ---------------------------------- -----------------------------------------------
-  `on <id\|all>`                     Turn a specific bulb ID or all bulbs **ON**.
-  `off <id\|all>`                    Turn a specific bulb ID or all bulbs **OFF**.
-  `brightness <id> <10-100>` (`b`)   Set brightness percentage.
+| Command | Description |
+|---|---|
+| `on <id\|all>` | Turn a specific bulb ID or all bulbs **ON**. |
+| `off <id\|all>` | Turn a specific bulb ID or all bulbs **OFF**. |
+| `brightness <id> <10-100>` (`b`) | Set brightness percentage. |
 
 
 
 **Color & Temperature**
 
-  -----------------------------------------------------------------------
-  Command                             Description
-  ----------------------------------- -----------------------------------
-  `color <id> [color_name]` (`c`)     Set a bulb to a named color preset
-                                      (e.g. `red`, `teal`, `coral`).
-                                      Opens the `fzf` color selector if
-                                      no color is specified.
-
-  `fzf_color <id>` (`fzfc`)           Browse and switch colors
-                                      continuously using `fzf` until
-                                      `ESC` is pressed.
-
-  `color_picker <id>` (`cp`,          Open the native macOS GUI color
-  `picker`)                           picker.
-
-  `rgb <id> <R,G,B>`                  Set exact RGB values,
-                                      e.g. `rgb 1 255,128,0`.
-
-  `temp <id> <2200-6500>` (`t`)       Set light temperature in Kelvin.
-
-  `color_list` (`cl`)                 List all available color presets.
+| Command | Description |
+|---|---|
+| `color <id> [color_name]` (`c`) | Set a bulb to a named color preset (e.g. `red`, `teal`, `coral`). Opens the `fzf` color selector if no color is specified. |
+| `fzf_color <id>` (`fzfc`) | Browse and switch colors continuously using `fzf` until `ESC` is pressed. |
+| `color_picker <id>` (`cp`, `picker`) | Open the native macOS GUI color picker. |
+| `rgb <id> <R,G,B>` | Set exact RGB values, e.g. `rgb 1 255,128,0`. |
+| `temp <id> <2200-6500>` (`t`) | Set light temperature in Kelvin. |
+| `color_list` (`cl`) | List all available color presets. |
 
 
 
@@ -248,43 +214,24 @@ ones are added (in parenthesis) after the commands in the table below.
 *(note that the 'scenes' in the WiZ App
 terminology denote something quite different than here afaik)*
 
-  ---------------------------------------------------------------------------------------
-  Command                                             Description
-  --------------------------------------------------- -----------------------------------
-  `scene <id> [scene_name]` (`s`)                     Run a scene on a bulb. Opens the
-                                                      `fzf` scene selector if no scene is
-                                                      provided.
-
-  `stop_scene <id>` (`x`)                             Stop any running background scene
-                                                      or fade animation on a bulb.
-
-  `fade_rgb <id> <R1,G1,B1> <R2,G2,B2> [cycle_sec]`   Continuously fade between two RGB
-                                                      colors. Use macOS color picker if
-                                                      no RGB values are specified.
-
-  `fade_color <id> <color1> <color2> [cycle_sec]`     Continuously fade between two named
-                                                      color presets. Use `fzf` color
-                                                      picker if no RGB values are
-                                                      specified.
-
-  `reset <id>`                                        Reset a bulb to a default static
-                                                      state.
-
-  `color_list` (`cl`)                                 List all available named colors.
-
-  `scene_list` (`sl`)                                 List all loaded custom scenes.
+| Command | Description |
+|---|---|
+| `scene <id> [scene_name]` (`s`) | Run a scene on a bulb. Opens the `fzf` scene selector if no scene is provided. |
+| `stop_scene <id>` (`x`) | Stop any running background scene or fade animation on a bulb. |
+| `fade_rgb <id> <R1,G1,B1> <R2,G2,B2> [cycle_sec]` | Continuously fade between two RGB colors. Use macOS color picker if no RGB values are specified. |
+| `fade_color <id> <color1> <color2> [cycle_sec]` | Continuously fade between two named color presets. Use `fzf` color picker if no RGB values are specified. |
+| `reset <id>` | Reset a bulb to a default static state. |
+| `color_list` (`cl`) | List all available named colors. |
+| `scene_list` (`sl`) | List all loaded custom scenes. |
 
 
 
 **Custom Configurations**
 
-  -----------------------------------------------------------------------
-  Command                             Description
-  ----------------------------------- -----------------------------------
-  `load_scene_file [path]`            Load custom SceneScripts. Defaults
-                                      to `scenes.toml`.
-
-  `load_color_file <path>`            Load custom color definitions.
+| Command | Description |
+|---|---|
+| `load_scene_file [path]` | Load custom SceneScripts. Defaults to `scenes.toml`. |
+| `load_color_file <path>` | Load custom color definitions. |
 
 
 
@@ -312,6 +259,7 @@ You can also specify custom color names and import them to the main CLI.
 Refer to the provided templates/default files in dist/ for the syntax
 for both scenes and colors.
 
+
 ## Feedback and Collaboration
 
 This is one of my very first projects that is actually working and
@@ -319,6 +267,7 @@ useful, so I would be very happy to get some feedback or collaboration
 on this project, maybe it's interesting for anyone else out there :3
 
 If so, please feel free to get in touch!!
+
 
 ## Further Work
 
@@ -344,6 +293,7 @@ Another approach could be Server/Browser based, and could e.g. run on a
 Home Server or Pi, and be accessed through the browser from all devices
 on the local network. Many possibilities!
 
+
 ## Credits
 
 A big help and inspiration for this project was Sean McNally's
@@ -354,6 +304,7 @@ https://seanmcnally.net/wiz-config.html
 Thank you, Sean!
 
 **Icon Credit:** [Flaticon](https://www.flaticon.com/) / Gregor Cresnar
+
 
 ## AI Transparency Disclaimer
 
