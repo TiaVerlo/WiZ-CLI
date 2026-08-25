@@ -47,7 +47,7 @@ only need minimal refactoring.
 - Requires [`fzf`](https://github.com/junegunn/fzf) for
 interactive color and scene pickers. I absolutely love this tool, fzf
 for the win! If you're on macOS, you can install fzf via Homebrew:
-`bash   brew install fzf`
+`brew install fzf`
 
 ## Installation & Building
 
@@ -61,10 +61,13 @@ provided *Build Script* with a Go Compiler - it builds Intel (amd64), Apple Sili
 (arm64), and Universal macOS binaries (adjust to your needs)
 
 Download the repo, and then run
-`bash
+``` bash
+
 cd WiZ-CLI/wiz-cli-go_v6.0/src
 chmod +x build-daemon.command
 ./build-daemon.command`
+
+```
 
 ## Usage
 
