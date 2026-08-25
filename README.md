@@ -157,20 +157,18 @@ expose a network service.
 
   `-h`, `--help`          Show command usage and  `./wiz-cli -h`
                           exit.                   
-  ----------------------------------------------------------------------------------------------------
 
 ## Daemon Commands
 
   -----------------------------------------------------------------------
   Command                             Description
-  ----------------------------------- -----------------------------------
+  -----------------------------------------------------------------------
   `daemon status`                     Show whether the persistent
                                       background daemon is currently
                                       running.
 
   `daemon stop`                       Cancel all active scenes and stop
                                       the background daemon.
-  -----------------------------------------------------------------------
 
 ## Command Reference
 
@@ -185,6 +183,8 @@ by a later invocation.
 Commands can be abbreviated, which allows you to work super fast with
 the shell. Different abbreviations are possible; the most convenient
 ones are added (in parenthesis) after the commands in the table below.
+
+
 
 **General & Management**
 
@@ -205,7 +205,8 @@ ones are added (in parenthesis) after the commands in the table below.
                                       status via UDP.
 
   `quit` (`exit`, `q`)                Exit the CLI.
-  -----------------------------------------------------------------------
+
+
 
 **Power & Brightness**
 
@@ -214,6 +215,8 @@ ones are added (in parenthesis) after the commands in the table below.
   `on <id\|all>`                     Turn a specific bulb ID or all bulbs **ON**.
   `off <id\|all>`                    Turn a specific bulb ID or all bulbs **OFF**.
   `brightness <id> <10-100>` (`b`)   Set brightness percentage.
+
+
 
 **Color & Temperature**
 
@@ -238,9 +241,11 @@ ones are added (in parenthesis) after the commands in the table below.
   `temp <id> <2200-6500>` (`t`)       Set light temperature in Kelvin.
 
   `color_list` (`cl`)                 List all available color presets.
-  -----------------------------------------------------------------------
 
-**Scenes & Animations** *(note that the 'scenes' in the WiZ App
+
+
+**Scenes & Animations**
+*(note that the 'scenes' in the WiZ App
 terminology denote something quite different than here afaik)*
 
   ---------------------------------------------------------------------------------------
@@ -268,7 +273,8 @@ terminology denote something quite different than here afaik)*
   `color_list` (`cl`)                                 List all available named colors.
 
   `scene_list` (`sl`)                                 List all loaded custom scenes.
-  ---------------------------------------------------------------------------------------
+
+
 
 **Custom Configurations**
 
@@ -279,7 +285,8 @@ terminology denote something quite different than here afaik)*
                                       to `scenes.toml`.
 
   `load_color_file <path>`            Load custom color definitions.
-  -----------------------------------------------------------------------
+
+
 
 ## Custom Scene & Color Files
 
@@ -315,15 +322,18 @@ If so, please feel free to get in touch!!
 
 ## Further Work
 
-*Reverse Engeneering* To me the most interesting next step would be to
+**Reverse Engeneering**
+- To me the most interesting next step would be to
 look into further features / internals of the bulbs beyond the UDP
 networking.
 
-*So Many Colors* An obvious and very satisfying avenue would be to build
+**So Many Colors**
+- An obvious and very satisfying avenue would be to build
 a rich, extensive and shareable library of well-defined named colors and
 especially scenes.
 
-*To Gui Or Not To Gui?* Even though the CLI and daemon work incredibly
+**To Gui Or Not To Gui?**
+- Even though the CLI and daemon work incredibly
 well and fast for this purpose in my opinion, especially when using
 abbreviations in the interactive shell mode, it would still be
 interesting to add a GUI layer/wrapper. I've experimented a bit with
